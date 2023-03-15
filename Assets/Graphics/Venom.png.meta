@@ -1,0 +1,2199 @@
+fileFormatVersion: 2
+guid: d46469f75c98f3240a3a5aa22b12300c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 36
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Venom_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1375
+        width: 49
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2d222ed7b6d2c64b914d867a6bc221f
+      internalID: -1240936775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 1375
+        width: 47
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea5a690e8d2e0e448bfeeead3b5a1965
+      internalID: -239174139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_2
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 1376
+        width: 46
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0336022caea23e44a0a041c749aec1a
+      internalID: 1846776589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_3
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 1380
+        width: 38
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28f7224bc96fbd54cb91571f3fda38ef
+      internalID: -1956803399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_4
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 1380
+        width: 56
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7622a48aca7fa8499ad2428465dad3c
+      internalID: 1889350917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_5
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 1381
+        width: 34
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a02054ae5677da4cb9f4ac23af3a3bf
+      internalID: 572181937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_6
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 1380
+        width: 44
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50167878243bbe742a4b0603877d718c
+      internalID: -1483296967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_7
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1378
+        width: 60
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 347d9325814461f4bb5b46725dd72361
+      internalID: -826843139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_8
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 1380
+        width: 37
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 645ed1d0da2887545accc75139439960
+      internalID: -1982055447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_9
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 1379
+        width: 29
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80e306bb1a9981247bbcf7b24bc255a5
+      internalID: 1060135086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_10
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 1263
+        width: 59
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20e0c452603c10c45aa4f1cb0edc77ad
+      internalID: -216453291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_11
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 1260
+        width: 76
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75eaf34f611eee34db163c7b7947924c
+      internalID: -2109451005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_12
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 1265
+        width: 52
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 041c2dc2a012dee4191d3fd84664d30e
+      internalID: 2039136467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_13
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 1267
+        width: 74
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc3a3c9d5172ba94f9aa81711d9a0deb
+      internalID: 1616970611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_14
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 1263
+        width: 78
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06055c42a9f07e94ea0001ac4f6a9762
+      internalID: 1589922584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_15
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 1262
+        width: 69
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42b4974331b8fa34c96b09c0e7862a17
+      internalID: 1232146853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1265
+        width: 50
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1478247a354844c9d8722cb59c41ca
+      internalID: -1704334960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_17
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 1272
+        width: 104
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7d475ffb74dda0479b2cee5067f7f12
+      internalID: 70433526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_21
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 1100
+        width: 45
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6bfebfc1bfd76d42adba662dcd26c59
+      internalID: -1649305371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_22
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 1105
+        width: 60
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 079d7621e1692c64b8a571656ec2789d
+      internalID: 1389437919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_23
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 1109
+        width: 125
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c67abf5de5d33414792b00c143b4a7f5
+      internalID: 145161725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_25
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 1100
+        width: 54
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca00f93c663ecdb4dbb4ee5a616737b8
+      internalID: 558398837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_26
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 1135
+        width: 43
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66a60eaa00a65c94794a8451cab534ec
+      internalID: 1779568609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_27
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1143
+        width: 34
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82df675b8cb1eb4291ae759b4afce63
+      internalID: -670447248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_28
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 1141
+        width: 32
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86d049a59db7b9346af3beaff8774ad2
+      internalID: 412208944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_29
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 1131
+        width: 59
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92319bca019fd7c40bfac6ffd0c398bd
+      internalID: -1674811472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_30
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 1091
+        width: 76
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ab79a3cf7f2706408f942ad10749e07
+      internalID: -1557552349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_33
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 1100
+        width: 74
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8210bd02bd2f2c64e946a70d4b43c425
+      internalID: -679470431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_34
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1127
+        width: 90
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91a3e0a8961865d429d17ebd61c7cbe3
+      internalID: 794955072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_35
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 1112
+        width: 49
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 029016c93baac2649908d9915656fb8c
+      internalID: 1301951347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_39
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 976
+        width: 106
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 998a70fa95372cb4fab48ae1829c8932
+      internalID: 379941199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_40
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 976
+        width: 90
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea81c069f347a5149aa2f0bc2bfd7fe6
+      internalID: 1729019262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_41
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 975
+        width: 89
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24e6fcc0b97b26b4e84d23aebda33278
+      internalID: 603078332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_42
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 977
+        width: 96
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95bbcbb103268514096eec40cd159791
+      internalID: 2103977329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_43
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 976
+        width: 98
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca3d55e8b88ba1b49bf2bd356025461e
+      internalID: -106227124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_44
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 976
+        width: 98
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da187f053dfa9c74f9c0505507aa29e9
+      internalID: 1595784473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_45
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 978
+        width: 98
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e98ea94db3064ce44a47664b38ac8214
+      internalID: 1133522714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_46
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 871
+        width: 82
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7d24f535ed418d4cabd6b1b15fecfdd
+      internalID: 1056285876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_47
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 873
+        width: 88
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8ba26fa96328c2419a609f0140f019f
+      internalID: 1816991783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_48
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 873
+        width: 104
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7576884f0bb076145b5685c704cd397f
+      internalID: 1437332962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_49
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 873
+        width: 152
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f352f7822227cb4bb3d4bd8a1265ac3
+      internalID: -1213751253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_50
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 873
+        width: 168
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23af55f809f4d7e429d10a9e9e332c13
+      internalID: -174794455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_51
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 873
+        width: 168
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e20e31f762a8fb49969ea59ec2677ec
+      internalID: -1226876315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_52
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 735
+        width: 47
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3df99c1970dd1d46ac9b97da719af2c
+      internalID: -1350327180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_53
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 735
+        width: 42
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bbd8c8ab7b48e442a22cf527535c1e7
+      internalID: 1395777963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_54
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 739
+        width: 42
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70706315902ce3245bab65a5576a7ae9
+      internalID: -1209940890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_55
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 749
+        width: 55
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f59be01c06995041b9d248781f784db
+      internalID: 574686542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_56
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 752
+        width: 50
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1015b66db22f6a340915350e9c5ef906
+      internalID: -1548410833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_57
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 741
+        width: 55
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6b087f343ac8294e8c5d41fb00b79fe
+      internalID: 1853616283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_58
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 744
+        width: 50
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e8d49cf35b5c9241af6fe85708c4471
+      internalID: 341724917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_59
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 750
+        width: 53
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bf7bf1abd19dc140986c0b848362a8d
+      internalID: -223773608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_60
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 733
+        width: 49
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3e49c4a8644d84d97cf793e752f7a0
+      internalID: -386131172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_61
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 746
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c524bee54f9c6f945be34b292a8306b3
+      internalID: -1070664629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_62
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 655
+        width: 82
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21cdde02b1e354d4a95d143c3c2b3324
+      internalID: -1538683464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_63
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 653
+        width: 59
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39fd2438d5b4b3d47b214e6b29addd88
+      internalID: -1109053437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_64
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 664
+        width: 65
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d21d7d085b1cb4f800c41c7b00eca8
+      internalID: -893307519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_66
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 536
+        width: 80
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf41fcbe85f1dce408f739131b490e42
+      internalID: -41226363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_68
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 539
+        width: 107
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39d04bbf15237484da28f5352051f2f1
+      internalID: 563485285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_70
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 543
+        width: 72
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba94b90dc459d4f4bb27ee94e69a3e26
+      internalID: -736336286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_71
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 542
+        width: 102
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40b506d4f6e4c124dbedac1216bcf400
+      internalID: -1830879653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_72
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 446
+        width: 84
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33acc827774de3f43aa3ecb051277b96
+      internalID: 86292722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_73
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 439
+        width: 75
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c945985cf0fa2440b08094e7338ce5a
+      internalID: -1489523245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_74
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 443
+        width: 61
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f00d6a75f2917484eab96ac5c2bd620b
+      internalID: -805832570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_75
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 450
+        width: 66
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 251d161b272ded94d9d3780f7f4780d8
+      internalID: 910180054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_76
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 450
+        width: 65
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86f8a42f0b7e3194dba4d08e04d4daf6
+      internalID: 2041089825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_77
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 448
+        width: 71
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59eec36b1e959c74cb3ac8342098e2cf
+      internalID: -2010693346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_78
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 459
+        width: 102
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 394530ccdd6769e47977299fa93c8e32
+      internalID: -191959509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_79
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 452
+        width: 86
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d14985f6127dbe748ba5137b5ab75c29
+      internalID: 89285093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_80
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 443
+        width: 64
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46173098afaa3ef48957500a4e09726e
+      internalID: 1719681746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_81
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 460
+        width: 64
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3633798bdc5dfd044ab39e7373b0efcb
+      internalID: 261598489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_82
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 490
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c0cf151fc6d6b641bf5041cedf0700e
+      internalID: 1866992943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_83
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 316
+        width: 93
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc0200d1cc8dbf6419dc93e57bd36527
+      internalID: 30166266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_84
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 316
+        width: 87
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95756685f45113f458bc6aab9dcb5d43
+      internalID: -1891299390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_85
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 320
+        width: 75
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04fc42f29c0339c498eb034016ef18d8
+      internalID: -1569760083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_86
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 319
+        width: 81
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aab367aa3b35a934f883fc2f1830f9e5
+      internalID: -1415708885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_87
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 320
+        width: 90
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b092d13e16e53ea4a92b23b168aac5d4
+      internalID: 1879238682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_88
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 317
+        width: 87
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990deecd211afbe4db29816351f00888
+      internalID: 1653680715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_89
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 318
+        width: 86
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41f6bef35835d604e8e1397513d50d20
+      internalID: -1802627306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_90
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 320
+        width: 100
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 422552abbf36d1d47a19f195c0d99d30
+      internalID: -1883644552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_91
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 315
+        width: 69
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94cbbeb279c3ab649b9aa1271816babc
+      internalID: -1005004378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_92
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 322
+        width: 107
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1e1596b858db1a43a5543e222b90b91
+      internalID: -2146750449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_93
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 188
+        width: 37
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c1cb6a7bc868dc40a25b1a835d4f42f
+      internalID: 1725447337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_94
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 188
+        width: 73
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a10f0375d5afd554e882d678c69a1b1b
+      internalID: 701778821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_95
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 180
+        width: 69
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66ab53cdc567d6743ba32859abc63800
+      internalID: -1424350433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_97
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 175
+        width: 73
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac9f568f1a233fc439ab3525fac4ae9a
+      internalID: -1540006101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_99
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 183
+        width: 64
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15c3c8e3d4ca1794081b7dfd8d06763a
+      internalID: 1709859336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_100
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 176
+        width: 105
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb879d5f157630e438d72c409dbfd552
+      internalID: 925830193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_102
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 175
+        width: 76
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6028f0fc5b8b9c949baf5c0bd37d59bc
+      internalID: -648084749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_103
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 176
+        width: 90
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab345125417e4f54bb90facf90ffe887
+      internalID: -290779880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_104
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 213
+        width: 98
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00b0e5f24cffcd04e8e2d39a42fc3e8d
+      internalID: -361286378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_107
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 21
+        width: 130
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6f6826f51871b840b6e4f6d853c68fd
+      internalID: 1757784436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Venom_108
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 54
+        width: 97
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960de6381418dbb4a93f1ebdfe29f1fa
+      internalID: -2102172823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Venom_33: -679470431
+      Venom_104: -361286378
+      Venom_91: -1005004378
+      Venom_123: 2138690816
+      Venom_20: -1390888060
+      Venom_7: -826843139
+      Venom_42: 2103977329
+      Venom_29: -1674811472
+      Venom_24: -575254270
+      Venom_140: 858762596
+      Venom_138: 402044422
+      Venom_0: -1240936775
+      Venom_84: -1891299390
+      Venom_2: 1846776589
+      Venom_37: -1654988299
+      Venom_108: -2102172823
+      Venom_141: -477737444
+      Venom_8: -1982055447
+      Venom_16: -1704334960
+      Venom_69: 1925912447
+      Venom_92: -2146750449
+      Venom_66: -41226363
+      Venom_40: 1729019262
+      Venom_116: -1331983672
+      Venom_130: -1500905842
+      Venom_139: -1176189644
+      Venom_63: -1109053437
+      Venom_136: 1323447599
+      Venom_22: 1389437919
+      Venom_43: -106227124
+      Venom_6: -1483296967
+      Venom_114: 1112839122
+      Venom_102: -648084749
+      Venom_47: 1816991783
+      Venom_59: -223773608
+      Venom_131: 1226667681
+      Venom_34: 794955072
+      Venom_77: -2010693346
+      Venom_39: 379941199
+      Venom_21: -1649305371
+      Venom_128: 538885277
+      Venom_62: -1538683464
+      Venom_122: -1720515072
+      Venom_44: 1595784473
+      Venom_64: -893307519
+      Venom_25: 558398837
+      Venom_11: -2109451005
+      Venom_48: 1437332962
+      Venom_70: -736336286
+      Venom_45: 1133522714
+      Venom_31: -125965614
+      Venom_13: 1616970611
+      Venom_58: 341724917
+      Venom_78: -191959509
+      Venom_100: 925830193
+      Venom_137: -1881179950
+      Venom_75: 910180054
+      Venom_127: 603744847
+      Venom_19: -747995518
+      Venom_109: -196487361
+      Venom_133: -1591365946
+      Venom_99: 1709859336
+      Venom_50: -174794455
+      Venom_14: 1589922584
+      Venom_89: -1802627306
+      Venom_120: -596366128
+      Venom_54: -1209940890
+      Venom_52: -1350327180
+      Venom_18: 2037018124
+      Venom_17: 70433526
+      Venom_4: 1889350917
+      Venom_87: 1879238682
+      Venom_35: 1301951347
+      Venom_23: 145161725
+      Venom_41: 603078332
+      Venom_115: -581961651
+      Venom_3: -1956803399
+      Venom_118: 1762033552
+      Venom_76: 2041089825
+      Venom_1: -239174139
+      Venom_97: -1540006101
+      Venom_60: -386131172
+      Venom_135: -547497977
+      Venom_85: -1569760083
+      Venom_12: 2039136467
+      Venom_94: 701778821
+      Venom_134: 562636099
+      Venom_82: 1866992943
+      Venom_5: 572181937
+      Venom_28: 412208944
+      Venom_79: 89285093
+      Venom_112: -1188416438
+      Venom_103: -290779880
+      Venom_38: 478533915
+      Venom_51: -1226876315
+      Venom_67: 1494276334
+      Venom_71: -1830879653
+      Venom_124: 753392093
+      Venom_90: -1883644552
+      Venom_9: 1060135086
+      Venom_96: -986584669
+      Venom_95: -1424350433
+      Venom_119: -717599299
+      Venom_121: -415829204
+      Venom_36: -1898343657
+      Venom_93: 1725447337
+      Venom_30: -1557552349
+      Venom_80: 1719681746
+      Venom_107: 1757784436
+      Venom_81: 261598489
+      Venom_106: -4953009
+      Venom_129: 1270783142
+      Venom_15: 1232146853
+      Venom_61: -1070664629
+      Venom_98: 1170515804
+      Venom_46: 1056285876
+      Venom_32: -1840340833
+      Venom_74: -805832570
+      Venom_83: 30166266
+      Venom_57: 1853616283
+      Venom_125: 2114785342
+      Venom_88: 1653680715
+      Venom_132: -1446202300
+      Venom_68: 563485285
+      Venom_113: -2016745109
+      Venom_27: -670447248
+      Venom_26: 1779568609
+      Venom_105: 1546532292
+      Venom_49: -1213751253
+      Venom_65: 582513848
+      Venom_111: 2140343322
+      Venom_73: -1489523245
+      Venom_55: 574686542
+      Venom_110: -44525611
+      Venom_56: -1548410833
+      Venom_72: 86292722
+      Venom_126: -1069500321
+      Venom_53: 1395777963
+      Venom_101: 1997004836
+      Venom_10: -216453291
+      Venom_86: -1415708885
+      Venom_117: -1982075076
+      Venom_142: 1776723934
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
