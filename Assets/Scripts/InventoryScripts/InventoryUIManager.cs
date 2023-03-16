@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class InventoryUIManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class InventoryUIManager : MonoBehaviour
 
     //This is a list of InventorySlot script objects attached to the InventorySlot prefabs
     private InventorySlotScript[] inventorySlots;
+    
+    private InputAction closeInventory;
 
     private void OnEnable() {
         InventorySlotScript.OnSlotClicked += HandleSlotClicked;

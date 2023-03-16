@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryArbiter : MonoBehaviour
 {
@@ -13,8 +14,16 @@ public class InventoryArbiter : MonoBehaviour
     public InventorySO inventorySO;
     private InventoryUIManager uiManager;
     
+    private InputAction inventory;
+    private InputAction closeInventory;
+
+    
     private void OnEnable() {
         CollectibleItem.OnItemCollected += HandleItemCollected;
+        InputManager.OnActionMapChange += InitializeInputActions;
+
+        // PlayerController.OnOpenInventory += ToggleUI;
+        // InventoryUIManager.OnCloseInventory += ToggleUI;
         inventorySO.InventorySize = inventorySize;
         
         //TODO: make this reset configurable
@@ -25,6 +34,8 @@ public class InventoryArbiter : MonoBehaviour
     
     private void OnDisable() {
         CollectibleItem.OnItemCollected -= HandleItemCollected;
+        // PlayerController.OnOpenInventory -= ToggleUI;
+        // InventoryUIManager.OnCloseInventory -= ToggleUI;
     }
 
     private void HandleItemCollected(ItemSO itemObject) {
@@ -47,6 +58,25 @@ public class InventoryArbiter : MonoBehaviour
     
     private void PretendItemWasCollected() {
         OnInventoryChange?.Invoke(inventorySO.ItemArray());
+    }
+
+    private void InventoryOpenClose(InputAction.CallbackContext context) {
+        ToggleUI();
+    }
+    // private void CloseInventory(InputAction.CallbackContext context) {
+    //     Debug.Log("Closing inventory...");
+    //     OnCloseInventory?.Invoke();
+    // }
+    //
+    // private void OpenInventory(InputAction.CallbackContext context) {
+    //     OnOpenInventory?.Invoke();
+    // }
+    
+    private void InitializeInputActions(InputActionMap actionMap) {
+        inventory = InputManager.inputActions.Player.Inventory;
+        inventory.started += InventoryOpenClose;
+        closeInventory = InputManager.inputActions.UI.Close;
+        closeInventory.started += InventoryOpenClose;
     }
 
     //TODO: make this work maybe

@@ -117,11 +117,7 @@ public class PlayerController : MonoBehaviour {
         currentState = newState;
         VenomStateEvent?.Invoke(currentState);
     }
-
-    // private void Fire(InputAction.CallbackContext context) {
-    //     Debug.Log("We fired");
-    // }
-
+    
     private void ToggleRunning(InputAction.CallbackContext context) {
         running = !running;
     }
@@ -141,26 +137,18 @@ public class PlayerController : MonoBehaviour {
     private void InitializeInputActions() {
         move = InputManager.inputActions.Player.Move;
         // move.Enable();
-
-        // fire = playerControls.Player.Fire;
-        // fire.Enable();
-        // fire.performed += Fire;
-
+        
         run = InputManager.inputActions.Player.Run;
-        // run.Enable();
         run.started += ToggleRunning;
         run.canceled += ToggleRunning;
 
         jump = InputManager.inputActions.Player.Jump;
-        // jump.Enable();
         jump.started += Jump;
 
         reach = InputManager.inputActions.Player.Reach;
-        // reach.Enable();
         reach.started += Reach;
 
         interact = InputManager.inputActions.Player.Interact;
-        // interact.Enable();
         interact.started += Interact;
     }
 
