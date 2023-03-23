@@ -11,11 +11,6 @@ public class InventorySlotScript : MonoBehaviour, IPointerClickHandler
     
     public GameObject itemPrefab;
     [HideInInspector] public int id;
-    
-    //TODO: move this into a parent object so every slot doesn't have to keep track of this object
-    // private DraggableItem draggingItem;
-    private InputAction leftClick;
-    
 
     public bool EmptySlot() {
         return transform.childCount == 0;

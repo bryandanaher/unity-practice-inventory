@@ -595,6 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySO: {fileID: 11400000, guid: 9b1f27d2312bb214c9fb8986015cfe8b, type: 2}
+  gameItemLookup: {fileID: 11400000, guid: b478d94db0a853f4da020a488d0af654, type: 2}
   slotPrefab: {fileID: 4585072441340308898, guid: 036e172c8f8c27a44a9cc08172e9edf3, type: 3}
   itemPrefab: {fileID: 5175721939747654525, guid: da6250cf2b056aa4ca991fd585ed4adb, type: 3}
   splitModalPrefab: {fileID: 962843310454043140, guid: 94bfb10932a2517428b32220e6d41946, type: 3}
@@ -2537,6 +2538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 24
+  resetOnStartup: 0
   inventoryUIContainer: {fileID: 1735224448}
   inventorySO: {fileID: 11400000, guid: 9b1f27d2312bb214c9fb8986015cfe8b, type: 2}
 --- !u!1 &941243131

@@ -9,15 +9,16 @@ public class InventoryArbiter : MonoBehaviour
     public static event Action<ItemData[]> OnInventoryChange;
 
     public int inventorySize;
+    public bool resetOnStartup;
 
     public GameObject inventoryUIContainer;
     public InventorySO inventorySO;
     private InventoryUIManager uiManager;
-    
+
     private InputAction inventory;
     private InputAction closeInventory;
 
-    
+
     private void OnEnable() {
         CollectibleItem.OnItemCollected += HandleItemCollected;
         InputManager.OnActionMapChange += InitializeInputActions;
@@ -25,13 +26,14 @@ public class InventoryArbiter : MonoBehaviour
         // PlayerController.OnOpenInventory += ToggleUI;
         // InventoryUIManager.OnCloseInventory += ToggleUI;
         inventorySO.InventorySize = inventorySize;
-        
-        //TODO: make this reset configurable
-        inventorySO.ResetArray();
+
+        if (resetOnStartup) {
+            inventorySO.ResetArray();
+        }
         uiManager = inventoryUIContainer.GetComponentInChildren<InventoryUIManager>();
         uiManager.DrawInventory(new ItemData[inventorySize]);
     }
-    
+
     private void OnDisable() {
         CollectibleItem.OnItemCollected -= HandleItemCollected;
         // PlayerController.OnOpenInventory -= ToggleUI;
@@ -43,7 +45,7 @@ public class InventoryArbiter : MonoBehaviour
         inventorySO.HandleItemCollected(newItemData);
         OnInventoryChange?.Invoke(inventorySO.ItemArray());
     }
-    
+
     public void ToggleUI() {
         if (inventoryUIContainer.activeSelf) {
             uiManager.PutAwayCarriedItems();
@@ -54,8 +56,8 @@ public class InventoryArbiter : MonoBehaviour
             PretendItemWasCollected();
             OnInventoryActive?.Invoke(true);
         }
-    }    
-    
+    }
+
     private void PretendItemWasCollected() {
         OnInventoryChange?.Invoke(inventorySO.ItemArray());
     }
@@ -71,7 +73,7 @@ public class InventoryArbiter : MonoBehaviour
     // private void OpenInventory(InputAction.CallbackContext context) {
     //     OnOpenInventory?.Invoke();
     // }
-    
+
     private void InitializeInputActions(InputActionMap actionMap) {
         inventory = InputManager.inputActions.Player.Inventory;
         inventory.started += InventoryOpenClose;

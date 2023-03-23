@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class InventoryUIManager : MonoBehaviour
 {
     public InventorySO inventorySO;
+    public GameItemLookup gameItemLookup;
 
     public GameObject slotPrefab;
     public GameObject itemPrefab;
@@ -41,7 +42,7 @@ public class InventoryUIManager : MonoBehaviour
         var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
         inventoryItem.parentAfterDrag = inventorySlots[slotId].transform;
         inventoryItem.OnEndDrag();
-        ClearDraggedItem(inventoryItem.GetMoveCoordinates());
+        PutDownDraggedItem(inventoryItem.GetMoveCoordinates());
 
         if (!updateLogicalInventory) return;
         inventorySO.PlaceItem(inventoryItem.GetMoveCoordinates().end);
@@ -61,16 +62,15 @@ public class InventoryUIManager : MonoBehaviour
                 var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
                 inventoryItem.parentAfterDrag = inventorySlots[clickedSlotId].transform;
                 inventoryItem.OnEndDrag();
-                ClearDraggedItem(inventoryItem.GetMoveCoordinates());
+                PutDownDraggedItem(inventoryItem.GetMoveCoordinates());
 
                 inventorySO.PlaceItem(inventoryItem.GetMoveCoordinates().end);
-                // HandleSlotClicked(clickedInventoryItem.GetMoveCoordinates().end);
-                itemBeingDragged = clickedItem;
+                PickUpAndDragItem(clickedItem);
                 itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
             }
             return;
         }
-        itemBeingDragged = clickedItem;
+        PickUpAndDragItem(clickedItem);
         inventorySO.PickUpItem(itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates().end);
         clickedItem.GetComponent<InventoryItem>().OnBeginDrag();
     }
@@ -159,11 +159,8 @@ public class InventoryUIManager : MonoBehaviour
         var inventoryItemData = inventorySO.GetItemData(inventoryItem.GetMoveCoordinates().end);
         var parentTransform = inventorySlots[inventoryItem.GetMoveCoordinates().end].gameObject.transform;
 
-        var newItemSO = (ItemSO)ScriptableObject.CreateInstance(typeof(ItemSO));
-
-        newItemSO.displayName = inventoryItemData.ItemObject.displayName;
-        newItemSO.icon = inventoryItemData.ItemObject.icon;
-        var itemData = new ItemData(newItemSO, stackSize);
+        var itemClassName = inventoryItemData.ItemObject.name;
+        var itemData = new ItemData(gameItemLookup.FindItemByName(itemClassName), stackSize);
         var newItem = Instantiate(itemPrefab, parentTransform);
         inventorySO.SetHeldItem(itemData);
 
@@ -185,15 +182,21 @@ public class InventoryUIManager : MonoBehaviour
         itemToTeleport.parentAfterDrag = inventorySlots[destinationIndex].transform;
         itemToTeleport.OnEndDrag();
         //TODO: refactor so I don't have to remember to call this each time
-        ClearDraggedItem(itemToTeleport.GetMoveCoordinates());
+        PutDownDraggedItem(itemToTeleport.GetMoveCoordinates());
+    }
+
+    private void PickUpAndDragItem(GameObject clickedItem) {
+        itemBeingDragged = clickedItem;
+        //TODO: create a shadow item and place it in the UI slot. The SO should work the same as before, I think? We'll just have to make sure the shadow clone gets destroyed before we try to render the proper item stack in the case of item splitting
     }
 
     //Basically, if the dragged item was put down, we want to set itemBeingDragged to null
-    private void ClearDraggedItem((int, int) itemId) {
+    private void PutDownDraggedItem((int, int) itemId) {
         if (itemBeingDragged != null &&
             itemId == itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates()) {
             itemBeingDragged = null;
         }
+        //TODO: destroy shadow clones. Maybe not here, maybe from where this is called...
     }
 
     private void UpdateInventory(ItemData[] inventory) {
