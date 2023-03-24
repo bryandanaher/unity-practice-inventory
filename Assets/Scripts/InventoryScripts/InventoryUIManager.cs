@@ -71,7 +71,8 @@ public class InventoryUIManager : MonoBehaviour
             return;
         }
         PickUpAndDragItem(clickedItem);
-        inventorySO.PickUpItem(itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates().end);
+        var draggedInventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
+        inventorySO.PickUpItem(draggedInventoryItem.GetMoveCoordinates().end);
         clickedItem.GetComponent<InventoryItem>().OnBeginDrag();
     }
 
@@ -148,14 +149,14 @@ public class InventoryUIManager : MonoBehaviour
             return;
         }
         
-        itemBeingDragged = CreateNewDraggedItem(clickedInventoryItem, (int)slider.value);
+        itemBeingDragged = CloneItem(clickedInventoryItem, (int)slider.value);
         itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
         var adjustedStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize - (int)slider.value;
         inventorySO.GetItemData(clickedItemIndex).stackSize = adjustedStackSize;
         clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>().text = adjustedStackSize.ToString();
     }
 
-    private GameObject CreateNewDraggedItem(InventoryItem inventoryItem, int stackSize) {
+    private GameObject CloneItem(InventoryItem inventoryItem, int stackSize) {
         var inventoryItemData = inventorySO.GetItemData(inventoryItem.GetMoveCoordinates().end);
         var parentTransform = inventorySlots[inventoryItem.GetMoveCoordinates().end].gameObject.transform;
 
@@ -177,7 +178,8 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void TeleportItem(InventoryItem itemToTeleport, int destinationIndex) {
-        var newCoordinates = (itemToTeleport.GetMoveCoordinates().end, itemToTeleport.GetMoveCoordinates().end);
+        var newCoordinates = (itemToTeleport.GetMoveCoordinates().end, 
+            itemToTeleport.GetMoveCoordinates().end);
         itemToTeleport.SetMoveCoordinates(newCoordinates);
         itemToTeleport.parentAfterDrag = inventorySlots[destinationIndex].transform;
         itemToTeleport.OnEndDrag();
@@ -186,8 +188,17 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void PickUpAndDragItem(GameObject clickedItem) {
-        itemBeingDragged = clickedItem;
-        //TODO: create a shadow item and place it in the UI slot. The SO should work the same as before, I think? We'll just have to make sure the shadow clone gets destroyed before we try to render the proper item stack in the case of item splitting
+        var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
+        var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
+        var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
+        
+        //TODO: I figured it out, sort of! This works, but there's still a bug. It was correctly making the clickedItem transparent, but it was assigning the clickedItem to the cursor to be dragged, while the draggedItem stuck to the item slot. I just need to work out the coordinates or something, and make sure I'm holding the dragged item, not the clicked item. 
+        itemBeingDragged = CloneItem(clickedInventoryItem, stackSize);
+        // itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
+
+        // clickedItem.GetComponent<Image>().color = new Color32(255,255,225,100);
+        itemBeingDragged.GetComponent<Image>().color = new Color32(255,255,225,100);
+
     }
 
     //Basically, if the dragged item was put down, we want to set itemBeingDragged to null
