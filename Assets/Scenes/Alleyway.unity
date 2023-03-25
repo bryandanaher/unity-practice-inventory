@@ -2538,7 +2538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 24
-  resetOnStartup: 0
+  resetOnStartup: 1
   inventoryUIContainer: {fileID: 1735224448}
   inventorySO: {fileID: 11400000, guid: 9b1f27d2312bb214c9fb8986015cfe8b, type: 2}
 --- !u!1 &941243131

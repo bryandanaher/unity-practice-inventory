@@ -9,8 +9,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public static event Action<GameObject> OnItemClicked;
     public static event Action<GameObject> OnItemShiftClick;
 
-    // public ItemData itemData;
     public Image image;
+    public bool ghostItem;
 
     [HideInInspector] public Transform parentAfterDrag;
 

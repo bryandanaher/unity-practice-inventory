@@ -18,7 +18,7 @@ public class InventoryUIManager : MonoBehaviour
 
     //This is a list of InventorySlot script objects attached to the InventorySlot prefabs
     private InventorySlotScript[] inventorySlots;
-    
+
     private InputAction closeInventory;
 
     private void OnEnable() {
@@ -39,13 +39,13 @@ public class InventoryUIManager : MonoBehaviour
 
     private void HandleSlotClicked(int slotId, bool updateLogicalInventory = true) {
         if (itemBeingDragged == null) return;
-        var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
-        inventoryItem.parentAfterDrag = inventorySlots[slotId].transform;
-        inventoryItem.OnEndDrag();
-        PutDownDraggedItem(inventoryItem.GetMoveCoordinates());
+        // var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
+        // inventoryItem.parentAfterDrag = inventorySlots[slotId].transform;
+        // inventoryItem.OnEndDrag();
+        PutDownDraggedItem(slotId);
 
         if (!updateLogicalInventory) return;
-        inventorySO.PlaceItem(inventoryItem.GetMoveCoordinates().end);
+        inventorySO.PlaceItem(slotId); //inventoryItem.GetMoveCoordinates().end);
     }
 
     private void HandleItemClicked(GameObject clickedItem) {
@@ -59,21 +59,19 @@ public class InventoryUIManager : MonoBehaviour
                 ItemsSwitchPlaces(clickedItem, draggedItemCoordinates.start);
             } else {
                 var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
-                var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
-                inventoryItem.parentAfterDrag = inventorySlots[clickedSlotId].transform;
-                inventoryItem.OnEndDrag();
-                PutDownDraggedItem(inventoryItem.GetMoveCoordinates());
-
-                inventorySO.PlaceItem(inventoryItem.GetMoveCoordinates().end);
+                // var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
+                PutDownDraggedItem(clickedSlotId);
+//                inventorySO.PlaceItem(inventoryItem.GetMoveCoordinates().end);
+                inventorySO.PlaceItem(clickedSlotId);
                 PickUpAndDragItem(clickedItem);
-                itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
+                // itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
             }
             return;
         }
         PickUpAndDragItem(clickedItem);
         var draggedInventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
         inventorySO.PickUpItem(draggedInventoryItem.GetMoveCoordinates().end);
-        clickedItem.GetComponent<InventoryItem>().OnBeginDrag();
+        // clickedItem.GetComponent<InventoryItem>().OnBeginDrag();
     }
 
     private void ItemsSwitchPlaces(GameObject clickedItem, int draggedItemOrigin) {
@@ -101,6 +99,7 @@ public class InventoryUIManager : MonoBehaviour
 
         clickedItemText.text = (int.Parse(clickedItemText.text) + numberOfItemsToAdd).ToString();
         heldItemText.text = (int.Parse(heldItemText.text) - numberOfItemsToAdd).ToString();
+        DestroyGhostItem(itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates().start);
         if (inventorySO.GetHeldItem() == null) {
             Destroy(itemBeingDragged);
         }
@@ -122,7 +121,7 @@ public class InventoryUIManager : MonoBehaviour
             var itemIcon = splitMenu.transform.Find("ItemIcon").GetComponent<Image>();
             var slider = splitMenu.transform.Find("Slider").GetComponent<Slider>();
             var percentageText = splitMenu.transform.Find("PercentageText").GetComponent<TMP_Text>();
-            
+
             modalRt.anchorMin = new Vector2(0, 0);
             modalRt.anchorMax = new Vector2(1, 1);
             modalRt.offsetMin = Vector2.zero;
@@ -143,12 +142,12 @@ public class InventoryUIManager : MonoBehaviour
         var slider = splitMenu.transform.Find("Slider").GetComponent<Slider>();
         var clickedInventoryItem = splitModal.GetComponent<SplitStackMenuController>().clickedInventoryItem;
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
-        
+
         if ((int)slider.value == (int)slider.maxValue) {
             HandleItemClicked(clickedInventoryItem.gameObject);
             return;
         }
-        
+
         itemBeingDragged = CloneItem(clickedInventoryItem, (int)slider.value);
         itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
         var adjustedStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize - (int)slider.value;
@@ -178,36 +177,44 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void TeleportItem(InventoryItem itemToTeleport, int destinationIndex) {
-        var newCoordinates = (itemToTeleport.GetMoveCoordinates().end, 
+        var newCoordinates = (itemToTeleport.GetMoveCoordinates().end,
             itemToTeleport.GetMoveCoordinates().end);
         itemToTeleport.SetMoveCoordinates(newCoordinates);
         itemToTeleport.parentAfterDrag = inventorySlots[destinationIndex].transform;
         itemToTeleport.OnEndDrag();
-        //TODO: refactor so I don't have to remember to call this each time
-        PutDownDraggedItem(itemToTeleport.GetMoveCoordinates());
+        // PutDownDraggedItem(itemToTeleport.GetMoveCoordinates());
+        //TODO: make sure this works
+        itemBeingDragged = null;
     }
 
     private void PickUpAndDragItem(GameObject clickedItem) {
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
         var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
-        
-        //TODO: I figured it out, sort of! This works, but there's still a bug. It was correctly making the clickedItem transparent, but it was assigning the clickedItem to the cursor to be dragged, while the draggedItem stuck to the item slot. I just need to work out the coordinates or something, and make sure I'm holding the dragged item, not the clicked item. 
+
+        //It's picking up the clicked item after this method finishes, because this is called by the item onclick method. 
         itemBeingDragged = CloneItem(clickedInventoryItem, stackSize);
-        // itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
+        itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
 
-        // clickedItem.GetComponent<Image>().color = new Color32(255,255,225,100);
-        itemBeingDragged.GetComponent<Image>().color = new Color32(255,255,225,100);
-
+        clickedItem.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
+        clickedItem.GetComponent<InventoryItem>().ghostItem = true;
     }
 
-    //Basically, if the dragged item was put down, we want to set itemBeingDragged to null
-    private void PutDownDraggedItem((int, int) itemId) {
-        if (itemBeingDragged != null &&
-            itemId == itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates()) {
-            itemBeingDragged = null;
+    private void PutDownDraggedItem(int clickedSlotId) {
+        if (itemBeingDragged == null) return;
+        
+        var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
+        DestroyGhostItem(inventoryItem.GetMoveCoordinates().start);
+        inventoryItem.parentAfterDrag = inventorySlots[clickedSlotId].transform;
+        inventoryItem.OnEndDrag();
+        itemBeingDragged = null;
+    }
+
+    private void DestroyGhostItem(int index) {
+        var ghostSlot = inventorySlots[index];
+        if(ghostSlot.HasGhostItems()) {
+            ghostSlot.ClearSlot();
         }
-        //TODO: destroy shadow clones. Maybe not here, maybe from where this is called...
     }
 
     private void UpdateInventory(ItemData[] inventory) {

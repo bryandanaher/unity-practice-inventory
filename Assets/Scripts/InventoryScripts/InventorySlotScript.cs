@@ -16,7 +16,7 @@ public class InventorySlotScript : MonoBehaviour, IPointerClickHandler
         return transform.childCount == 0;
     }
 
-    private void ClearSlot() {
+    public void ClearSlot() {
         foreach (Transform child in transform) {
             Destroy(child.gameObject);
         }  
@@ -36,5 +36,14 @@ public class InventorySlotScript : MonoBehaviour, IPointerClickHandler
             return;
         }
         OnSlotClicked?.Invoke(id, true);
+    }
+
+    public bool HasGhostItems() {
+        foreach (Transform child in transform) {
+            if (child.gameObject.GetComponent<InventoryItem>().ghostItem) {
+                return true;
+            }
+        }
+        return false;
     }
 }
