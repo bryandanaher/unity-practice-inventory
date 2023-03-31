@@ -13,8 +13,7 @@ public class InventoryUIManager : MonoBehaviour
     public GameObject itemPrefab;
     public GameObject splitModalPrefab;
 
-    //TODO: name this more consistently with the SO version
-    private GameObject itemBeingDragged;
+    private GameObject heldItemPrefab;
 
     //This is a list of InventorySlot script objects attached to the InventorySlot prefabs
     private InventorySlotScript[] inventorySlots;
@@ -38,19 +37,16 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void HandleSlotClicked(int slotId, bool updateLogicalInventory = true) {
-        if (itemBeingDragged == null) return;
-        // var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
-        // inventoryItem.parentAfterDrag = inventorySlots[slotId].transform;
-        // inventoryItem.OnEndDrag();
+        if (heldItemPrefab == null) return;
         PutDownDraggedItem(slotId);
 
         if (!updateLogicalInventory) return;
-        inventorySO.PlaceItem(slotId); //inventoryItem.GetMoveCoordinates().end);
+        inventorySO.PlaceItem(slotId);
     }
 
     private void HandleItemClicked(GameObject clickedItem) {
-        if (itemBeingDragged != null) {
-            var draggedItemCoordinates = itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates();
+        if (heldItemPrefab != null) {
+            var draggedItemCoordinates = heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates();
             var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
 
             if (CanAddToItemStack(clickedInventoryItem)) {
@@ -59,82 +55,51 @@ public class InventoryUIManager : MonoBehaviour
                 ItemsSwitchPlaces(clickedItem, draggedItemCoordinates.start);
             } else {
                 var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
-                // var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
                 PutDownDraggedItem(clickedSlotId);
-//                inventorySO.PlaceItem(inventoryItem.GetMoveCoordinates().end);
                 inventorySO.PlaceItem(clickedSlotId);
                 PickUpAndDragItem(clickedItem);
-                // itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
             }
             return;
         }
         PickUpAndDragItem(clickedItem);
-        var draggedInventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
+        var draggedInventoryItem = heldItemPrefab.GetComponent<InventoryItem>();
         inventorySO.PickUpItem(draggedInventoryItem.GetMoveCoordinates().end);
-        // clickedItem.GetComponent<InventoryItem>().OnBeginDrag();
     }
 
-    private void ItemsSwitchPlaces(GameObject clickedItem, int draggedItemOrigin) {
-        var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
-        var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
-        TeleportItem(clickedInventoryItem, draggedItemOrigin);
-        HandleSlotClicked(clickedSlotId, false);
-
-        inventorySO.SwitchItems(clickedSlotId, draggedItemOrigin);
-        inventorySO.PlaceItem(clickedSlotId);
-    }
-
-    private bool CanAddToItemStack(InventoryItem clickedInventoryItem) {
-        var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
-        return inventorySO.GetItemData(clickedItemIndex).itemName == inventorySO.GetHeldItem().itemName &&
-               inventorySO.GetItemData(clickedItemIndex).stackSize < inventorySO.stackSizeMax;
-    }
-
-    //If you try to split a stack of 1, it gets all messed up. Except it doesn't.
-    //Maybe the shift issue fixed this too?
     private void AddHeldItemToStack(InventoryItem clickedInventoryItem) {
         var clickedItemText = clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>();
-        var heldItemText = itemBeingDragged.GetComponentInChildren<TextMeshProUGUI>();
+        var heldItemText = heldItemPrefab.GetComponentInChildren<TextMeshProUGUI>();
         var numberOfItemsToAdd = inventorySO.AddHeldItemToStack(clickedInventoryItem.GetMoveCoordinates().end);
 
         clickedItemText.text = (int.Parse(clickedItemText.text) + numberOfItemsToAdd).ToString();
         heldItemText.text = (int.Parse(heldItemText.text) - numberOfItemsToAdd).ToString();
-        DestroyGhostItem(itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates().start);
+        DestroyGhostItem(heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates().start);
         if (inventorySO.GetHeldItem() == null) {
-            Destroy(itemBeingDragged);
+            Destroy(heldItemPrefab);
         }
     }
-
-    // private bool ItemStackOverflow(ItemData clickedItemData, ItemData heldItemData) {
-    //     return (clickedItemData.stackSize + heldItemData.stackSize) > inventorySO.stackSizeMax;
-    // }
 
     private void OpenSplitMenu(GameObject clickedItem) {
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
-        var clickedItemStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
 
-        if (inventorySO.GetItemData(clickedItemIndex).stackSize > 1 && itemBeingDragged == null) {
-            var splitModal = Instantiate(splitModalPrefab, transform.parent.parent);
-            var modalRt = splitModal.GetComponent<RectTransform>();
-            var splitMenu = splitModal.transform.Find("SplitStackMenu");
-            var itemIcon = splitMenu.transform.Find("ItemIcon").GetComponent<Image>();
-            var slider = splitMenu.transform.Find("Slider").GetComponent<Slider>();
-            var percentageText = splitMenu.transform.Find("PercentageText").GetComponent<TMP_Text>();
-
-            modalRt.anchorMin = new Vector2(0, 0);
-            modalRt.anchorMax = new Vector2(1, 1);
-            modalRt.offsetMin = Vector2.zero;
-            modalRt.offsetMax = Vector2.zero;
-
-            splitModal.GetComponent<SplitStackMenuController>().clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
-            itemIcon.sprite = clickedItem.GetComponent<InventoryItem>().image.sprite;
-            slider.maxValue = clickedItemStackSize;
-            slider.value = clickedItemStackSize - (clickedItemStackSize / 2);
-            percentageText.text = slider.value + "/" + clickedItemStackSize;
-        } else {
+        if (inventorySO.GetItemData(clickedItemIndex).stackSize <= 1 || heldItemPrefab != null) {
             HandleItemClicked(clickedItem);
+            return;
         }
+
+        var splitModal = CreateSplitModal();
+        var clickedItemStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
+        var splitMenu = splitModal.transform.Find("SplitStackMenu");
+        var itemIcon = splitMenu.transform.Find("ItemIcon").GetComponent<Image>();
+        var slider = splitMenu.transform.Find("Slider").GetComponent<Slider>();
+        var percentageText = splitMenu.transform.Find("PercentageText").GetComponent<TMP_Text>();
+
+        splitModal.GetComponent<SplitStackMenuController>().clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
+        itemIcon.sprite = clickedItem.GetComponent<InventoryItem>().image.sprite;
+        slider.maxValue = clickedItemStackSize;
+        slider.value = clickedItemStackSize - (clickedItemStackSize / 2);
+        percentageText.text = slider.value + "/" + clickedItemStackSize;
     }
 
     private void SplitStack(GameObject splitModal) {
@@ -148,13 +113,69 @@ public class InventoryUIManager : MonoBehaviour
             return;
         }
 
-        itemBeingDragged = CloneItem(clickedInventoryItem, (int)slider.value);
-        itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
+        heldItemPrefab = CloneItem(clickedInventoryItem, (int)slider.value);
+        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
         var adjustedStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize - (int)slider.value;
         inventorySO.GetItemData(clickedItemIndex).stackSize = adjustedStackSize;
         clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>().text = adjustedStackSize.ToString();
     }
 
+    private void PutDownDraggedItem(int clickedSlotId) {
+        if (heldItemPrefab == null) return;
+
+        var inventoryItem = heldItemPrefab.GetComponent<InventoryItem>();
+        DestroyGhostItem(inventoryItem.GetMoveCoordinates().start);
+        inventoryItem.parentAfterDrag = inventorySlots[clickedSlotId].transform;
+        inventoryItem.OnEndDrag();
+        heldItemPrefab = null;
+    }
+    
+    public void PutAwayCarriedItems() {
+        if (heldItemPrefab == null) return;
+        var startIndex = heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates().start;
+        if (inventorySO.GetItemData(startIndex) != null) {
+            AddHeldItemToStack(inventorySlots[startIndex].transform.gameObject.GetComponentInChildren<InventoryItem>());
+        } else {
+            HandleSlotClicked(startIndex);
+        }
+    }
+       
+    private void PickUpAndDragItem(GameObject clickedItem) {
+        var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
+        var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
+        var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
+
+        //TODO: It was picking up the clicked item after this method finishes, because this is called by the item onclick method. 
+        heldItemPrefab = CloneItem(clickedInventoryItem, stackSize);
+        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
+
+        clickedItem.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
+        clickedItem.GetComponent<InventoryItem>().ghostItem = true;
+    }
+
+    /*
+    /---------------------UTILITY/SECONDARY ACTIONS---------------------
+    */
+    private void ItemsSwitchPlaces(GameObject clickedItem, int draggedItemOrigin) {
+        var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
+        var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
+        TeleportItem(clickedInventoryItem, draggedItemOrigin);
+        HandleSlotClicked(clickedSlotId, false);
+
+        inventorySO.SwitchItems(clickedSlotId, draggedItemOrigin);
+        inventorySO.PlaceItem(clickedSlotId);
+    }
+    
+    private bool CanAddToItemStack(InventoryItem clickedInventoryItem) {
+        var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
+        return inventorySO.GetItemData(clickedItemIndex).itemName == inventorySO.GetHeldItem().itemName &&
+               inventorySO.GetItemData(clickedItemIndex).stackSize < inventorySO.stackSizeMax;
+    }
+    
+    private bool IsSlotEmpty(int index) {
+        return inventorySlots[index].gameObject.transform.childCount <= 0;
+    }
+    
     private GameObject CloneItem(InventoryItem inventoryItem, int stackSize) {
         var inventoryItemData = inventorySO.GetItemData(inventoryItem.GetMoveCoordinates().end);
         var parentTransform = inventorySlots[inventoryItem.GetMoveCoordinates().end].gameObject.transform;
@@ -171,9 +192,12 @@ public class InventoryUIManager : MonoBehaviour
         newInventoryItem.SetMoveCoordinates(inventoryItem.GetMoveCoordinates());
         return newItem;
     }
-
-    private bool IsSlotEmpty(int index) {
-        return inventorySlots[index].gameObject.transform.childCount <= 0;
+    
+    private void DestroyGhostItem(int index) {
+        var ghostSlot = inventorySlots[index];
+        if (ghostSlot.HasGhostItems()) {
+            ghostSlot.ClearSlot();
+        }
     }
 
     private void TeleportItem(InventoryItem itemToTeleport, int destinationIndex) {
@@ -184,39 +208,23 @@ public class InventoryUIManager : MonoBehaviour
         itemToTeleport.OnEndDrag();
         // PutDownDraggedItem(itemToTeleport.GetMoveCoordinates());
         //TODO: make sure this works
-        itemBeingDragged = null;
+        heldItemPrefab = null;
     }
 
-    private void PickUpAndDragItem(GameObject clickedItem) {
-        var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
-        var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
-        var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
-
-        //It's picking up the clicked item after this method finishes, because this is called by the item onclick method. 
-        itemBeingDragged = CloneItem(clickedInventoryItem, stackSize);
-        itemBeingDragged.GetComponent<InventoryItem>().OnBeginDrag();
-
-        clickedItem.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
-        clickedItem.GetComponent<InventoryItem>().ghostItem = true;
+    private GameObject CreateSplitModal() {
+        var splitModal = Instantiate(splitModalPrefab, transform.parent.parent);
+        var modalRt = splitModal.GetComponent<RectTransform>();
+        modalRt.anchorMin = new Vector2(0, 0);
+        modalRt.anchorMax = new Vector2(1, 1);
+        modalRt.offsetMin = Vector2.zero;
+        modalRt.offsetMax = Vector2.zero;
+        return splitModal;
     }
 
-    private void PutDownDraggedItem(int clickedSlotId) {
-        if (itemBeingDragged == null) return;
-        
-        var inventoryItem = itemBeingDragged.GetComponent<InventoryItem>();
-        DestroyGhostItem(inventoryItem.GetMoveCoordinates().start);
-        inventoryItem.parentAfterDrag = inventorySlots[clickedSlotId].transform;
-        inventoryItem.OnEndDrag();
-        itemBeingDragged = null;
-    }
 
-    private void DestroyGhostItem(int index) {
-        var ghostSlot = inventorySlots[index];
-        if(ghostSlot.HasGhostItems()) {
-            ghostSlot.ClearSlot();
-        }
-    }
-
+    /*
+    /---------------------SETUP/TEARDOWN---------------------
+    */
     private void UpdateInventory(ItemData[] inventory) {
         for (var i = 0; i < inventory.Length; i++) {
             if (inventory[i] != null && inventory[i].stackSize > 0) { //TODO: This is apparently always true and I am filled with rage
@@ -253,15 +261,5 @@ public class InventoryUIManager : MonoBehaviour
         inventorySlotScript.id = index;
 
         inventorySlots[index] = inventorySlotScript;
-    }
-
-    public void PutAwayCarriedItems() {
-        if (itemBeingDragged == null) return;
-        var startIndex = itemBeingDragged.GetComponent<InventoryItem>().GetMoveCoordinates().start;
-        if (inventorySO.GetItemData(startIndex) != null) {
-            AddHeldItemToStack(inventorySlots[startIndex].transform.gameObject.GetComponentInChildren<InventoryItem>());
-        } else {
-            HandleSlotClicked(startIndex);
-        }
     }
 }
