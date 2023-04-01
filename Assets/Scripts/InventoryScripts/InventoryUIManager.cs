@@ -37,7 +37,11 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void HandleSlotClicked(int slotId, bool updateLogicalInventory = true) {
+        Debug.Log("handling slot clicked with id: " + slotId);
+        Debug.Log("HandleSlotClicked heldItemPrefab == null: " + (heldItemPrefab == null));
         if (heldItemPrefab == null) return;
+        Debug.Log("about to call PutDownDraggedItem...");
+
         PutDownDraggedItem(slotId);
 
         if (!updateLogicalInventory) return;
@@ -52,6 +56,7 @@ public class InventoryUIManager : MonoBehaviour
             if (CanAddToItemStack(clickedInventoryItem)) {
                 AddHeldItemToStack(clickedInventoryItem);
             } else if (IsSlotEmpty(draggedItemCoordinates.start)) {
+                Debug.Log("HandleItemClicked heldItemPrefab == null: " + (heldItemPrefab == null));
                 ItemsSwitchPlaces(clickedItem, draggedItemCoordinates.start);
             } else {
                 var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
@@ -120,16 +125,6 @@ public class InventoryUIManager : MonoBehaviour
         clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>().text = adjustedStackSize.ToString();
     }
 
-    private void PutDownDraggedItem(int clickedSlotId) {
-        if (heldItemPrefab == null) return;
-
-        var inventoryItem = heldItemPrefab.GetComponent<InventoryItem>();
-        DestroyGhostItem(inventoryItem.GetMoveCoordinates().start);
-        inventoryItem.parentAfterDrag = inventorySlots[clickedSlotId].transform;
-        inventoryItem.OnEndDrag();
-        heldItemPrefab = null;
-    }
-    
     public void PutAwayCarriedItems() {
         if (heldItemPrefab == null) return;
         var startIndex = heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates().start;
@@ -159,7 +154,8 @@ public class InventoryUIManager : MonoBehaviour
     private void ItemsSwitchPlaces(GameObject clickedItem, int draggedItemOrigin) {
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
-        TeleportItem(clickedInventoryItem, draggedItemOrigin);
+        Debug.Log("ItemsSwitchPlaces heldItemPrefab == null: " + (heldItemPrefab == null));
+        PutInventoryItemInSlot(clickedInventoryItem, draggedItemOrigin);
         HandleSlotClicked(clickedSlotId, false);
 
         inventorySO.SwitchItems(clickedSlotId, draggedItemOrigin);
@@ -173,7 +169,8 @@ public class InventoryUIManager : MonoBehaviour
     }
     
     private bool IsSlotEmpty(int index) {
-        return inventorySlots[index].gameObject.transform.childCount <= 0;
+        var childCount = inventorySlots[index].gameObject.transform.childCount;
+        return childCount <= 0 || inventorySlots[index].HasGhostItems();
     }
     
     private GameObject CloneItem(InventoryItem inventoryItem, int stackSize) {
@@ -199,16 +196,23 @@ public class InventoryUIManager : MonoBehaviour
             ghostSlot.ClearSlot();
         }
     }
-
-    private void TeleportItem(InventoryItem itemToTeleport, int destinationIndex) {
-        var newCoordinates = (itemToTeleport.GetMoveCoordinates().end,
-            itemToTeleport.GetMoveCoordinates().end);
-        itemToTeleport.SetMoveCoordinates(newCoordinates);
-        itemToTeleport.parentAfterDrag = inventorySlots[destinationIndex].transform;
-        itemToTeleport.OnEndDrag();
-        // PutDownDraggedItem(itemToTeleport.GetMoveCoordinates());
-        //TODO: make sure this works
+    
+    private void PutDownDraggedItem(int clickedSlotId) {
+        if (heldItemPrefab == null) return;
+        var inventoryItem = heldItemPrefab.GetComponent<InventoryItem>();
+        PutInventoryItemInSlot(inventoryItem, clickedSlotId, false);
         heldItemPrefab = null;
+    }
+
+    private void PutInventoryItemInSlot(InventoryItem inventoryItem, int destinationIndex, bool setCoordinates = true) {
+        DestroyGhostItem(destinationIndex);
+        if (setCoordinates) {
+            var newCoordinates = (inventoryItem.GetMoveCoordinates().end,
+                inventoryItem.GetMoveCoordinates().end);
+            inventoryItem.SetMoveCoordinates(newCoordinates);
+        }
+        inventoryItem.parentAfterDrag = inventorySlots[destinationIndex].transform;
+        inventoryItem.OnEndDrag();
     }
 
     private GameObject CreateSplitModal() {
