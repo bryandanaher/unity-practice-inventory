@@ -23,6 +23,10 @@ public class InventorySO : ScriptableObject
         return itemArray[index];
     }
 
+    public bool ItemExists(int index) {
+        return itemArray[index] != null;
+    }
+
     //TODO: revisit the need for this
     public void HandleItemCollected(ItemData itemData) {
         if (!Add(itemData)) {

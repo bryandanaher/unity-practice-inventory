@@ -21,7 +21,24 @@ public class InventorySlotScript : MonoBehaviour, IPointerClickHandler
             Destroy(child.gameObject);
         }  
     }
+    
+    public void ClearGhostItems() {
+        foreach (Transform child in transform) {
+            if (child.gameObject.GetComponent<InventoryItem>().ghostItem) {
+                Destroy(child.gameObject);
+            }
+        }  
+    }
 
+    public bool HasGhostItems() {
+        foreach (Transform child in transform) {
+            if (child.gameObject.GetComponent<InventoryItem>().ghostItem) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void DrawSlot(ItemData itemData) {
         ClearSlot();
         var newItem = Instantiate(itemPrefab, transform);
@@ -36,14 +53,5 @@ public class InventorySlotScript : MonoBehaviour, IPointerClickHandler
             return;
         }
         OnSlotClicked?.Invoke(id, true);
-    }
-
-    public bool HasGhostItems() {
-        foreach (Transform child in transform) {
-            if (child.gameObject.GetComponent<InventoryItem>().ghostItem) {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -37,13 +37,8 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void HandleSlotClicked(int slotId, bool updateLogicalInventory = true) {
-        Debug.Log("handling slot clicked with id: " + slotId);
-        Debug.Log("HandleSlotClicked heldItemPrefab == null: " + (heldItemPrefab == null));
         if (heldItemPrefab == null) return;
-        Debug.Log("about to call PutDownDraggedItem...");
-
         PutDownDraggedItem(slotId);
-
         if (!updateLogicalInventory) return;
         inventorySO.PlaceItem(slotId);
     }
@@ -56,7 +51,6 @@ public class InventoryUIManager : MonoBehaviour
             if (CanAddToItemStack(clickedInventoryItem)) {
                 AddHeldItemToStack(clickedInventoryItem);
             } else if (IsSlotEmpty(draggedItemCoordinates.start)) {
-                Debug.Log("HandleItemClicked heldItemPrefab == null: " + (heldItemPrefab == null));
                 ItemsSwitchPlaces(clickedItem, draggedItemCoordinates.start);
             } else {
                 var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
@@ -122,14 +116,17 @@ public class InventoryUIManager : MonoBehaviour
         heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
         var adjustedStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize - (int)slider.value;
         inventorySO.GetItemData(clickedItemIndex).stackSize = adjustedStackSize;
+        
         clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>().text = adjustedStackSize.ToString();
+        // SetGhostItem(GetItemGameObject(clickedItemIndex));
     }
 
     public void PutAwayCarriedItems() {
         if (heldItemPrefab == null) return;
         var startIndex = heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates().start;
         if (inventorySO.GetItemData(startIndex) != null) {
-            AddHeldItemToStack(inventorySlots[startIndex].transform.gameObject.GetComponentInChildren<InventoryItem>());
+            //TODO: replace this with a de-ghost method, depending on how I implement
+            AddHeldItemToStack(GetItemGameObject(startIndex).GetComponentInChildren<InventoryItem>());
         } else {
             HandleSlotClicked(startIndex);
         }
@@ -140,22 +137,23 @@ public class InventoryUIManager : MonoBehaviour
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
         var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
 
-        //TODO: It was picking up the clicked item after this method finishes, because this is called by the item onclick method. 
         heldItemPrefab = CloneItem(clickedInventoryItem, stackSize);
         heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
 
-        clickedItem.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
-        clickedItem.GetComponent<InventoryItem>().ghostItem = true;
+        SetGhostItem(clickedItem);
     }
 
     /*
     /---------------------UTILITY/SECONDARY ACTIONS---------------------
     */
+    private GameObject GetItemGameObject(int index) {
+        return inventorySlots[index].gameObject;
+    }
+    
     private void ItemsSwitchPlaces(GameObject clickedItem, int draggedItemOrigin) {
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
-        Debug.Log("ItemsSwitchPlaces heldItemPrefab == null: " + (heldItemPrefab == null));
-        PutInventoryItemInSlot(clickedInventoryItem, draggedItemOrigin);
+        PutInventoryItemInSlot(clickedInventoryItem, draggedItemOrigin, false);
         HandleSlotClicked(clickedSlotId, false);
 
         inventorySO.SwitchItems(clickedSlotId, draggedItemOrigin);
@@ -164,7 +162,8 @@ public class InventoryUIManager : MonoBehaviour
     
     private bool CanAddToItemStack(InventoryItem clickedInventoryItem) {
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
-        return inventorySO.GetItemData(clickedItemIndex).itemName == inventorySO.GetHeldItem().itemName &&
+        return inventorySO.ItemExists(clickedItemIndex) &&
+               inventorySO.GetItemData(clickedItemIndex).itemName == inventorySO.GetHeldItem().itemName &&
                inventorySO.GetItemData(clickedItemIndex).stackSize < inventorySO.stackSizeMax;
     }
     
@@ -189,12 +188,20 @@ public class InventoryUIManager : MonoBehaviour
         newInventoryItem.SetMoveCoordinates(inventoryItem.GetMoveCoordinates());
         return newItem;
     }
+
+    private void SetGhostItem(GameObject itemObject) {
+        itemObject.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
+        itemObject.GetComponent<InventoryItem>().ghostItem = true;
+    }
+    
+    // private void UnSetGhostItem(GameObject itemObject) {
+    //     itemObject.GetComponent<Image>().color = new Color32(255, 255, 225, 255);
+    //     itemObject.GetComponent<InventoryItem>().ghostItem = false;
+    // }
     
     private void DestroyGhostItem(int index) {
         var ghostSlot = inventorySlots[index];
-        if (ghostSlot.HasGhostItems()) {
-            ghostSlot.ClearSlot();
-        }
+        ghostSlot.ClearGhostItems();
     }
     
     private void PutDownDraggedItem(int clickedSlotId) {
@@ -204,13 +211,16 @@ public class InventoryUIManager : MonoBehaviour
         heldItemPrefab = null;
     }
 
-    private void PutInventoryItemInSlot(InventoryItem inventoryItem, int destinationIndex, bool setCoordinates = true) {
+    private void PutInventoryItemInSlot(InventoryItem inventoryItem, int destinationIndex, 
+        bool setCoordinates = true) {
         DestroyGhostItem(destinationIndex);
+        DestroyGhostItem(inventoryItem.GetMoveCoordinates().start);
         if (setCoordinates) {
             var newCoordinates = (inventoryItem.GetMoveCoordinates().end,
                 inventoryItem.GetMoveCoordinates().end);
             inventoryItem.SetMoveCoordinates(newCoordinates);
         }
+        
         inventoryItem.parentAfterDrag = inventorySlots[destinationIndex].transform;
         inventoryItem.OnEndDrag();
     }
