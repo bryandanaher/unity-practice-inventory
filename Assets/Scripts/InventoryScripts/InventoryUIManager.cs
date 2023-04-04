@@ -56,7 +56,10 @@ public class InventoryUIManager : MonoBehaviour
                 var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
                 PutDownDraggedItem(clickedSlotId);
                 inventorySO.PlaceItem(clickedSlotId);
-                PickUpAndDragItem(clickedItem);
+                // This is awkward because the logical inventory is showing a different stack size at this point
+                // DrawInventory is sort of a nuclear option, but I am tired...
+                DrawInventory(inventorySO.ItemArray(), inventorySO.GetHeldItem());
+                // PickUpAndDragItem(clickedItem);
             }
             return;
         }
@@ -116,9 +119,8 @@ public class InventoryUIManager : MonoBehaviour
         heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
         var adjustedStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize - (int)slider.value;
         inventorySO.GetItemData(clickedItemIndex).stackSize = adjustedStackSize;
-        
-        clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>().text = adjustedStackSize.ToString();
-        // SetGhostItem(GetItemGameObject(clickedItemIndex));
+        // clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>().text = adjustedStackSize.ToString();
+        SetGhostItem(GetInventoryItemBySlotIndex(clickedItemIndex).gameObject);
     }
 
     public void PutAwayCarriedItems() {
@@ -126,30 +128,19 @@ public class InventoryUIManager : MonoBehaviour
         var startIndex = heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates().start;
         if (inventorySO.GetItemData(startIndex) != null) {
             //TODO: replace this with a de-ghost method, depending on how I implement
-            AddHeldItemToStack(GetItemGameObject(startIndex).GetComponentInChildren<InventoryItem>());
+            AddHeldItemToStack(GetInventoryItemBySlotIndex(startIndex));
         } else {
             HandleSlotClicked(startIndex);
         }
-    }
-       
-    private void PickUpAndDragItem(GameObject clickedItem) {
-        var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
-        var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
-        var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
-
-        heldItemPrefab = CloneItem(clickedInventoryItem, stackSize);
-        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
-
-        SetGhostItem(clickedItem);
     }
 
     /*
     /---------------------UTILITY/SECONDARY ACTIONS---------------------
     */
-    private GameObject GetItemGameObject(int index) {
-        return inventorySlots[index].gameObject;
+    private InventoryItem GetInventoryItemBySlotIndex(int index) {
+        return inventorySlots[index].gameObject.GetComponentInChildren<InventoryItem>();
     }
-    
+
     private void ItemsSwitchPlaces(GameObject clickedItem, int draggedItemOrigin) {
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
@@ -159,59 +150,57 @@ public class InventoryUIManager : MonoBehaviour
         inventorySO.SwitchItems(clickedSlotId, draggedItemOrigin);
         inventorySO.PlaceItem(clickedSlotId);
     }
-    
+
     private bool CanAddToItemStack(InventoryItem clickedInventoryItem) {
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
         return inventorySO.ItemExists(clickedItemIndex) &&
                inventorySO.GetItemData(clickedItemIndex).itemName == inventorySO.GetHeldItem().itemName &&
                inventorySO.GetItemData(clickedItemIndex).stackSize < inventorySO.stackSizeMax;
     }
-    
+
     private bool IsSlotEmpty(int index) {
         var childCount = inventorySlots[index].gameObject.transform.childCount;
-        return childCount <= 0 || inventorySlots[index].HasGhostItems();
-    }
-    
-    private GameObject CloneItem(InventoryItem inventoryItem, int stackSize) {
-        var inventoryItemData = inventorySO.GetItemData(inventoryItem.GetMoveCoordinates().end);
-        var parentTransform = inventorySlots[inventoryItem.GetMoveCoordinates().end].gameObject.transform;
-
-        var itemClassName = inventoryItemData.ItemObject.name;
-        var itemData = new ItemData(gameItemLookup.FindItemByName(itemClassName), stackSize);
-        var newItem = Instantiate(itemPrefab, parentTransform);
-        inventorySO.SetHeldItem(itemData);
-
-        newItem.GetComponent<Image>().sprite = itemData.ItemObject.icon;
-        newItem.GetComponentInChildren<TextMeshProUGUI>().text = stackSize.ToString();
-        var newInventoryItem = newItem.GetComponent<InventoryItem>();
-        newInventoryItem.parentAfterDrag = parentTransform;
-        newInventoryItem.SetMoveCoordinates(inventoryItem.GetMoveCoordinates());
-        return newItem;
+        return childCount <= 0 || (inventorySlots[index].HasGhostItems() && !inventorySO.ItemExists(index));
     }
 
     private void SetGhostItem(GameObject itemObject) {
         itemObject.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
         itemObject.GetComponent<InventoryItem>().ghostItem = true;
     }
-    
+
     // private void UnSetGhostItem(GameObject itemObject) {
     //     itemObject.GetComponent<Image>().color = new Color32(255, 255, 225, 255);
     //     itemObject.GetComponent<InventoryItem>().ghostItem = false;
     // }
-    
+
     private void DestroyGhostItem(int index) {
-        var ghostSlot = inventorySlots[index];
-        ghostSlot.ClearGhostItems();
+        if (inventorySO.ItemExists(index)) {
+            var incompleteItemData = inventorySO.GetItemData(index);
+            inventorySlots[index].DrawSlot(new ItemData(gameItemLookup.FindItemByObjectName(incompleteItemData.ItemObject.name),
+                incompleteItemData.stackSize));
+        } else {
+            var ghostSlot = inventorySlots[index];
+            ghostSlot.ClearGhostItems();
+        }
     }
-    
+
     private void PutDownDraggedItem(int clickedSlotId) {
         if (heldItemPrefab == null) return;
         var inventoryItem = heldItemPrefab.GetComponent<InventoryItem>();
         PutInventoryItemInSlot(inventoryItem, clickedSlotId, false);
         heldItemPrefab = null;
     }
+    
+    private void PickUpAndDragItem(GameObject clickedItem) {
+        var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
+        var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
+        var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
+        heldItemPrefab = CloneItem(clickedInventoryItem, stackSize);
+        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
+        SetGhostItem(clickedItem);
+    }
 
-    private void PutInventoryItemInSlot(InventoryItem inventoryItem, int destinationIndex, 
+    private void PutInventoryItemInSlot(InventoryItem inventoryItem, int destinationIndex,
         bool setCoordinates = true) {
         DestroyGhostItem(destinationIndex);
         DestroyGhostItem(inventoryItem.GetMoveCoordinates().start);
@@ -220,7 +209,7 @@ public class InventoryUIManager : MonoBehaviour
                 inventoryItem.GetMoveCoordinates().end);
             inventoryItem.SetMoveCoordinates(newCoordinates);
         }
-        
+
         inventoryItem.parentAfterDrag = inventorySlots[destinationIndex].transform;
         inventoryItem.OnEndDrag();
     }
@@ -235,10 +224,41 @@ public class InventoryUIManager : MonoBehaviour
         return splitModal;
     }
 
+    private GameObject CloneItem(InventoryItem inventoryItem, int stackSize) {
+        var inventoryItemData = inventorySO.GetItemData(inventoryItem.GetMoveCoordinates().end);
+        var parentTransform = inventorySlots[inventoryItem.GetMoveCoordinates().end].gameObject.transform;
+
+        var itemClassName = inventoryItemData.ItemObject.name;
+        var itemData = new ItemData(gameItemLookup.FindItemByObjectName(itemClassName), stackSize);
+        var newItem = Instantiate(itemPrefab, parentTransform);
+        inventorySO.SetHeldItem(itemData);
+
+        newItem.GetComponent<Image>().sprite = itemData.ItemObject.icon;
+        newItem.GetComponentInChildren<TextMeshProUGUI>().text = stackSize.ToString();
+        var newInventoryItem = newItem.GetComponent<InventoryItem>();
+        newInventoryItem.parentAfterDrag = parentTransform;
+        newInventoryItem.SetMoveCoordinates(inventoryItem.GetMoveCoordinates());
+        return newItem;
+    }
 
     /*
     /---------------------SETUP/TEARDOWN---------------------
     */
+    //TODO: Give this new item move coordinates...somehow.
+    private void DrawHeldItem(ItemData heldItemData) {
+        var itemClassName = heldItemData.ItemObject.name;
+        var itemData = new ItemData(gameItemLookup.FindItemByObjectName(itemClassName), heldItemData.stackSize);
+        var newItem = Instantiate(itemPrefab, transform);
+        newItem.GetComponent<Image>().sprite = itemData.ItemObject.icon;
+        newItem.GetComponentInChildren<TextMeshProUGUI>().text = itemData.stackSize.ToString();
+        var newInventoryItem = newItem.GetComponent<InventoryItem>();
+        newInventoryItem.parentAfterDrag = transform;
+        // newInventoryItem.SetMoveCoordinates(inventoryItem.GetMoveCoordinates());
+        
+        heldItemPrefab = newItem;
+        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
+    }
+    
     private void UpdateInventory(ItemData[] inventory) {
         for (var i = 0; i < inventory.Length; i++) {
             if (inventory[i] != null && inventory[i].stackSize > 0) { //TODO: This is apparently always true and I am filled with rage
@@ -247,13 +267,16 @@ public class InventoryUIManager : MonoBehaviour
         }
     }
 
-    public void DrawInventory(ItemData[] inventory) {
+    public void DrawInventory(ItemData[] inventory, ItemData heldItem = null) {
         ResetInventory(inventory.Length);
         for (var i = 0; i < inventory.Length; i++) {
             CreateInventorySlot(i);
             if (inventory[i] != null && inventory[i].stackSize > 0) {
                 inventorySlots[i].DrawSlot(inventory[i]);
             }
+        }
+        if (heldItem != null) {
+            DrawHeldItem(heldItem);
         }
     }
 
