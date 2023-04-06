@@ -54,12 +54,11 @@ public class InventoryUIManager : MonoBehaviour
                 ItemsSwitchPlaces(clickedItem, draggedItemCoordinates.start);
             } else {
                 var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
+                var clickedStackSize = inventorySO.GetItemData(clickedSlotId).stackSize;
                 PutDownDraggedItem(clickedSlotId);
                 inventorySO.PlaceItem(clickedSlotId);
-                // This is awkward because the logical inventory is showing a different stack size at this point
-                // DrawInventory is sort of a nuclear option, but I am tired...
-                DrawInventory(inventorySO.ItemArray(), inventorySO.GetHeldItem());
-                // PickUpAndDragItem(clickedItem);
+                PickUpAndDragItem(clickedItem, clickedStackSize);
+                DestroyGhostItem(clickedSlotId);
             }
             return;
         }
@@ -174,7 +173,7 @@ public class InventoryUIManager : MonoBehaviour
     // }
 
     private void DestroyGhostItem(int index) {
-        if (inventorySO.ItemExists(index)) {
+        if (inventorySO.ItemExists(index) && inventorySlots[index].HasGhostItems()) {
             var incompleteItemData = inventorySO.GetItemData(index);
             inventorySlots[index].DrawSlot(new ItemData(gameItemLookup.FindItemByObjectName(incompleteItemData.ItemObject.name),
                 incompleteItemData.stackSize));
@@ -191,10 +190,12 @@ public class InventoryUIManager : MonoBehaviour
         heldItemPrefab = null;
     }
     
-    private void PickUpAndDragItem(GameObject clickedItem) {
+    private void PickUpAndDragItem(GameObject clickedItem, int stackSize = 0) {
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
-        var stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
+        if (stackSize == 0) {
+            stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
+        }
         heldItemPrefab = CloneItem(clickedInventoryItem, stackSize);
         heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
         SetGhostItem(clickedItem);
@@ -209,7 +210,6 @@ public class InventoryUIManager : MonoBehaviour
                 inventoryItem.GetMoveCoordinates().end);
             inventoryItem.SetMoveCoordinates(newCoordinates);
         }
-
         inventoryItem.parentAfterDrag = inventorySlots[destinationIndex].transform;
         inventoryItem.OnEndDrag();
     }
@@ -244,21 +244,6 @@ public class InventoryUIManager : MonoBehaviour
     /*
     /---------------------SETUP/TEARDOWN---------------------
     */
-    //TODO: Give this new item move coordinates...somehow.
-    private void DrawHeldItem(ItemData heldItemData) {
-        var itemClassName = heldItemData.ItemObject.name;
-        var itemData = new ItemData(gameItemLookup.FindItemByObjectName(itemClassName), heldItemData.stackSize);
-        var newItem = Instantiate(itemPrefab, transform);
-        newItem.GetComponent<Image>().sprite = itemData.ItemObject.icon;
-        newItem.GetComponentInChildren<TextMeshProUGUI>().text = itemData.stackSize.ToString();
-        var newInventoryItem = newItem.GetComponent<InventoryItem>();
-        newInventoryItem.parentAfterDrag = transform;
-        // newInventoryItem.SetMoveCoordinates(inventoryItem.GetMoveCoordinates());
-        
-        heldItemPrefab = newItem;
-        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
-    }
-    
     private void UpdateInventory(ItemData[] inventory) {
         for (var i = 0; i < inventory.Length; i++) {
             if (inventory[i] != null && inventory[i].stackSize > 0) { //TODO: This is apparently always true and I am filled with rage
@@ -267,16 +252,13 @@ public class InventoryUIManager : MonoBehaviour
         }
     }
 
-    public void DrawInventory(ItemData[] inventory, ItemData heldItem = null) {
+    public void DrawInventory(ItemData[] inventory) {
         ResetInventory(inventory.Length);
         for (var i = 0; i < inventory.Length; i++) {
             CreateInventorySlot(i);
             if (inventory[i] != null && inventory[i].stackSize > 0) {
                 inventorySlots[i].DrawSlot(inventory[i]);
             }
-        }
-        if (heldItem != null) {
-            DrawHeldItem(heldItem);
         }
     }
 

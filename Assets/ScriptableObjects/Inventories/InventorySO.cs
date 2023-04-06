@@ -24,7 +24,7 @@ public class InventorySO : ScriptableObject
     }
 
     public bool ItemExists(int index) {
-        return itemArray[index] != null;
+        return itemArray[index] != null && itemArray[index].stackSize > 0;
     }
 
     //TODO: revisit the need for this
