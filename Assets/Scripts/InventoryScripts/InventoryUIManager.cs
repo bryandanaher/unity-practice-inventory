@@ -281,4 +281,8 @@ public class InventoryUIManager : MonoBehaviour
 
         inventorySlots[index] = inventorySlotScript;
     }
+
+    public bool WillThisMethodReturnTrue(bool prediction) {
+        return prediction;
+    }
 }
