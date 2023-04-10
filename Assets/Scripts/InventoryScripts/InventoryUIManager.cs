@@ -1,4 +1,4 @@
-using System;
+using InventoryScripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,19 +8,19 @@ public class InventoryUIManager : MonoBehaviour
 {
     public InventorySO inventorySO;
     public GameItemLookup gameItemLookup;
+    private InventoryUIUtils uiUtils;
 
     public GameObject slotPrefab;
     public GameObject itemPrefab;
     public GameObject splitModalPrefab;
-
-    private GameObject heldItemPrefab;
-
+    
     //This is a list of InventorySlot script objects attached to the InventorySlot prefabs
     private InventorySlotScript[] inventorySlots;
 
     private InputAction closeInventory;
 
     private void OnEnable() {
+        uiUtils = new InventoryUIUtils();
         InventorySlotScript.OnSlotClicked += HandleSlotClicked;
         InventoryItem.OnItemClicked += HandleItemClicked;
         InventoryItem.OnItemShiftClick += OpenSplitMenu;
@@ -37,21 +37,21 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void HandleSlotClicked(int slotId, bool updateLogicalInventory = true) {
-        if (heldItemPrefab == null) return;
+        if (!uiUtils.HoldingItem()) return;
         PutDownDraggedItem(slotId);
         if (!updateLogicalInventory) return;
         inventorySO.PlaceItem(slotId);
     }
 
     private void HandleItemClicked(GameObject clickedItem) {
-        if (heldItemPrefab != null) {
-            var draggedItemCoordinates = heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates();
+        if (uiUtils.HoldingItem()) {
+            var heldItemStartLocation = uiUtils.GetHeldItemCoordinatesStart();
             var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
 
             if (CanAddToItemStack(clickedInventoryItem)) {
                 AddHeldItemToStack(clickedInventoryItem);
-            } else if (IsSlotEmpty(draggedItemCoordinates.start)) {
-                ItemsSwitchPlaces(clickedItem, draggedItemCoordinates.start);
+            } else if (IsSlotEmpty(heldItemStartLocation)) {
+                ItemsSwitchPlaces(clickedItem, heldItemStartLocation);
             } else {
                 var clickedSlotId = clickedInventoryItem.GetMoveCoordinates().end;
                 var clickedStackSize = inventorySO.GetItemData(clickedSlotId).stackSize;
@@ -63,20 +63,19 @@ public class InventoryUIManager : MonoBehaviour
             return;
         }
         PickUpAndDragItem(clickedItem);
-        var draggedInventoryItem = heldItemPrefab.GetComponent<InventoryItem>();
-        inventorySO.PickUpItem(draggedInventoryItem.GetMoveCoordinates().end);
+        inventorySO.PickUpItem(uiUtils.GetHeldItemCoordinatesEnd());
     }
 
     private void AddHeldItemToStack(InventoryItem clickedInventoryItem) {
         var clickedItemText = clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>();
-        var heldItemText = heldItemPrefab.GetComponentInChildren<TextMeshProUGUI>();
+        var heldItemText = uiUtils.GetHeldItem().GetComponentInChildren<TextMeshProUGUI>();
         var numberOfItemsToAdd = inventorySO.AddHeldItemToStack(clickedInventoryItem.GetMoveCoordinates().end);
 
         clickedItemText.text = (int.Parse(clickedItemText.text) + numberOfItemsToAdd).ToString();
         heldItemText.text = (int.Parse(heldItemText.text) - numberOfItemsToAdd).ToString();
-        DestroyGhostItem(heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates().start);
+        DestroyGhostItem(uiUtils.GetHeldItemCoordinatesStart());
         if (inventorySO.GetHeldItem() == null) {
-            Destroy(heldItemPrefab);
+            uiUtils.DestroyHeldItemPrefab(); 
         }
     }
 
@@ -84,7 +83,7 @@ public class InventoryUIManager : MonoBehaviour
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
 
-        if (inventorySO.GetItemData(clickedItemIndex).stackSize <= 1 || heldItemPrefab != null) {
+        if (inventorySO.GetItemData(clickedItemIndex).stackSize <= 1 || uiUtils.HoldingItem()) {
             HandleItemClicked(clickedItem);
             return;
         }
@@ -114,8 +113,8 @@ public class InventoryUIManager : MonoBehaviour
             return;
         }
 
-        heldItemPrefab = CloneItem(clickedInventoryItem, (int)slider.value);
-        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
+        uiUtils.SetHeldItemPrefab(CloneItem(clickedInventoryItem, (int)slider.value));
+        uiUtils.GetHeldInventoryItem().OnBeginDrag();
         var adjustedStackSize = inventorySO.GetItemData(clickedItemIndex).stackSize - (int)slider.value;
         inventorySO.GetItemData(clickedItemIndex).stackSize = adjustedStackSize;
         // clickedInventoryItem.GetComponentInChildren<TextMeshProUGUI>().text = adjustedStackSize.ToString();
@@ -123,8 +122,8 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     public void PutAwayCarriedItems() {
-        if (heldItemPrefab == null) return;
-        var startIndex = heldItemPrefab.GetComponent<InventoryItem>().GetMoveCoordinates().start;
+        if (!uiUtils.HoldingItem()) return;
+        var startIndex = uiUtils.GetHeldItemCoordinatesStart();
         if (inventorySO.GetItemData(startIndex) != null) {
             //TODO: replace this with a de-ghost method, depending on how I implement
             AddHeldItemToStack(GetInventoryItemBySlotIndex(startIndex));
@@ -184,10 +183,10 @@ public class InventoryUIManager : MonoBehaviour
     }
 
     private void PutDownDraggedItem(int clickedSlotId) {
-        if (heldItemPrefab == null) return;
-        var inventoryItem = heldItemPrefab.GetComponent<InventoryItem>();
+        if (!uiUtils.HoldingItem()) return;
+        var inventoryItem = uiUtils.GetHeldInventoryItem();
         PutInventoryItemInSlot(inventoryItem, clickedSlotId, false);
-        heldItemPrefab = null;
+        uiUtils.DestroyHeldItemPrefab();
     }
     
     private void PickUpAndDragItem(GameObject clickedItem, int stackSize = 0) {
@@ -196,8 +195,8 @@ public class InventoryUIManager : MonoBehaviour
         if (stackSize == 0) {
             stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
         }
-        heldItemPrefab = CloneItem(clickedInventoryItem, stackSize);
-        heldItemPrefab.GetComponent<InventoryItem>().OnBeginDrag();
+        uiUtils.SetHeldItemPrefab(CloneItem(clickedInventoryItem, stackSize));
+        uiUtils.GetHeldInventoryItem().OnBeginDrag();
         SetGhostItem(clickedItem);
     }
 
@@ -227,18 +226,10 @@ public class InventoryUIManager : MonoBehaviour
     private GameObject CloneItem(InventoryItem inventoryItem, int stackSize) {
         var inventoryItemData = inventorySO.GetItemData(inventoryItem.GetMoveCoordinates().end);
         var parentTransform = inventorySlots[inventoryItem.GetMoveCoordinates().end].gameObject.transform;
-
         var itemClassName = inventoryItemData.ItemObject.name;
         var itemData = new ItemData(gameItemLookup.FindItemByObjectName(itemClassName), stackSize);
-        var newItem = Instantiate(itemPrefab, parentTransform);
         inventorySO.SetHeldItem(itemData);
-
-        newItem.GetComponent<Image>().sprite = itemData.ItemObject.icon;
-        newItem.GetComponentInChildren<TextMeshProUGUI>().text = stackSize.ToString();
-        var newInventoryItem = newItem.GetComponent<InventoryItem>();
-        newInventoryItem.parentAfterDrag = parentTransform;
-        newInventoryItem.SetMoveCoordinates(inventoryItem.GetMoveCoordinates());
-        return newItem;
+        return uiUtils.CloneItem(itemPrefab, parentTransform, itemData, stackSize, inventoryItem.GetMoveCoordinates());
     }
 
     /*
