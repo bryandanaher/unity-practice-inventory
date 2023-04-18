@@ -1,11 +1,12 @@
-﻿using TMPro;
+﻿using InventoryScripts;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 namespace InventoryScripts
 {
-    public class InventoryUIUtils
+    public static class InventoryUIUtils
     {
         public static void SetGhostItem(GameObject itemObject) {
             itemObject.GetComponent<Image>().color = new Color32(255, 255, 225, 100);

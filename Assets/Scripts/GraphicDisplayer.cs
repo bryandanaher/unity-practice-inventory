@@ -10,20 +10,21 @@ public class GraphicDisplayer : MonoBehaviour
 
     private bool keepHidden = false;
 
-    internal void ShowDisplayGraphic() {
+    public void ShowDisplayGraphic() {
         if (!keepHidden) {
             spriteRenderer.enabled = true;
         }
     }
-    
-    internal void PlayDisplayGraphicAnimation() {
-        if (!keepHidden) {
-            animator.enabled = true;
-            keepHidden = true;
+
+    public void PlayDisplayGraphicAnimation() {
+        if (keepHidden) {
+            return;
         }
+        animator.enabled = true;
+        keepHidden = true;
     }
 
-    internal void HideDisplayGraphic() {
+    public void HideDisplayGraphic() {
         animator.enabled = false;
         spriteRenderer.enabled = false;
     }
