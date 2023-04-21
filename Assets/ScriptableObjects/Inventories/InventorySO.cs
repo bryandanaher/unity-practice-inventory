@@ -75,8 +75,6 @@ public class InventorySO : ScriptableObject
             itemArray[index].ItemObject.displayName == heldItem.ItemObject.displayName) {
             var remainingCapacity = stackSizeMax - itemArray[index].stackSize;
             var numberToAdd = Math.Min(remainingCapacity, heldItem.stackSize);
-            // Debug.Log("RemainingCapacity: " + remainingCapacity);
-            // Debug.Log("numberToAdd: " + numberToAdd);
             itemArray[index].stackSize += numberToAdd;
             heldItem.stackSize -= numberToAdd;
             if (heldItem.stackSize <= 0) {

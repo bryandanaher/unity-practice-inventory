@@ -1,9 +1,9 @@
 {
-    "name": "_Inputs",
+    "name": "_EventPropagator",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:8f4c72d5a26b7d64ebff287251c42b1f"
+        "GUID:c142e553846044e46a717b02f355d150",
+        "GUID:0c792400b4979ee4bad168e5c7c1f139"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

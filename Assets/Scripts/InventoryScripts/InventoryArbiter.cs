@@ -65,7 +65,6 @@ public class InventoryArbiter : MonoBehaviour
         ToggleUI();
     }
     // private void CloseInventory(InputAction.CallbackContext context) {
-    //     Debug.Log("Closing inventory...");
     //     OnCloseInventory?.Invoke();
     // }
     //

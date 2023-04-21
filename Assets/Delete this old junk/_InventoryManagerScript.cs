@@ -21,13 +21,9 @@ public class _InventoryManagerScript : MonoBehaviour
 
     private void DrawInventory(List<_InventoryItem> inventory) {
         ResetInventory();
-
-        Debug.Log("inventorySlots.Capacity: " + inventorySlots.Capacity);
-
         for (var i = 0; i < inventorySlots.Capacity; i++) {
             CreateInventorySlot();
         }
-
         for (var i = 0; i < inventory.Count; i++) {
             inventorySlots[i].DrawSlot(inventory[i]);
         }
