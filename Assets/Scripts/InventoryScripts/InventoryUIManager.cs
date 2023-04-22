@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-public class InventoryUIManager : MonoBehaviour
-{
+public class InventoryUIManager : MonoBehaviour 
+{ 
     public InventorySO inventorySO;
     public GameItemLookup gameItemLookup;
     // private InventoryUIUtils uiUtils;
@@ -59,7 +59,7 @@ public class InventoryUIManager : MonoBehaviour
                 var clickedStackSize = inventorySO.GetItemData(clickedSlotId).stackSize;
                 PutDownDraggedItem(clickedSlotId);
                 inventorySO.PlaceItem(clickedSlotId);
-                PickUpAndDragItem(clickedItem, clickedStackSize);
+                PickUpAndDragItem(clickedItem, clickedStackSize, true);
                 DestroyGhostItem(clickedSlotId);
             }
             return;
@@ -170,13 +170,13 @@ public class InventoryUIManager : MonoBehaviour
         heldItemManager.ResetHeldItemPrefab();
     }
 
-    private void PickUpAndDragItem(GameObject clickedItem, int stackSize = 0) {
+    private void PickUpAndDragItem(GameObject clickedItem, int stackSize = 0, bool held = false) {
         var clickedInventoryItem = clickedItem.GetComponent<InventoryItem>();
         var clickedItemIndex = clickedInventoryItem.GetMoveCoordinates().end;
         if (stackSize == 0) {
             stackSize = inventorySO.GetItemData(clickedItemIndex).stackSize;
         }
-        heldItemManager.SetHeldItemPrefab(CloneItem(clickedInventoryItem, stackSize));
+        heldItemManager.SetHeldItemPrefab(CloneItem(clickedInventoryItem, stackSize, held));
         heldItemManager.GetHeldInventoryItem().OnBeginDrag();
         InventoryUIUtils.SetGhostItem(clickedItem);
     }
@@ -189,8 +189,11 @@ public class InventoryUIManager : MonoBehaviour
     }
 
 
-    private GameObject CloneItem(InventoryItem inventoryItem, int stackSize) {
+    private GameObject CloneItem(InventoryItem inventoryItem, int stackSize, bool held = false) {
         var inventoryItemData = inventorySO.GetItemData(inventoryItem.GetMoveCoordinates().end);
+        if (held) {
+            inventoryItemData = inventorySO.GetHeldItem();
+        }
         var parentTransform = inventorySlots[inventoryItem.GetMoveCoordinates().end].gameObject.transform;
         var itemClassName = inventoryItemData.ItemObject.name;
         var itemData = new ItemData(gameItemLookup.FindItemByObjectName(itemClassName), stackSize);
