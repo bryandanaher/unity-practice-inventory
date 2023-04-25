@@ -9,7 +9,7 @@ namespace InventoryScripts
     public static class InventoryUIUtils
     {
         public static void SetGhostItem(GameObject itemObject) {
-            itemObject.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
+            itemObject.GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
             itemObject.GetComponent<InventoryItem>().ghostItem = true;
         }
         
@@ -50,7 +50,7 @@ namespace InventoryScripts
         }
         
         public static InventorySlotScript CreateInventorySlot(int index, GameObject slotPrefab, Transform parentTransform) {
-            //The second parameter sets the parent, instead of instantiating by default in a
+            //The second parameter of Object.Instantiate sets the parent, instead of instantiating by default in a
             //brand new transform hierarchy and then setting it to the proper parent afterwards
             var newSlot = Object.Instantiate(slotPrefab, parentTransform);
             var inventorySlotScript = newSlot.GetComponent<InventorySlotScript>();
