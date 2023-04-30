@@ -1,8 +1,7 @@
-﻿using InventoryScripts;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
+using NSubstitute;
 
 namespace InventoryScripts
 {
@@ -50,21 +49,21 @@ namespace InventoryScripts
         }
         
         public static InventorySlotScript CreateInventorySlot(int index, GameObject slotPrefab, Transform parentTransform) {
-            //The second parameter of Object.Instantiate sets the parent, instead of instantiating by default in a
-            //brand new transform hierarchy and then setting it to the proper parent afterwards
+            //The second parameter of Object.Instantiate sets the parent, instead of instantiating by default 
+            //in a brand new transform hierarchy and then setting it to the proper parent afterwards
             var newSlot = Object.Instantiate(slotPrefab, parentTransform);
             var inventorySlotScript = newSlot.GetComponent<InventorySlotScript>();
             inventorySlotScript.id = index;
             return inventorySlotScript;
         }
 
-        public static void PutInventoryItemInSlot(InventoryItem inventoryItem, Transform parentAfterDrag, bool setCoordinates = true) {
+        public static void PutInventoryItemInSlot(IInventoryItem inventoryItem, Transform parentAfterDrag, bool setCoordinates = true) {
             if (setCoordinates) {
                 var newCoordinates = (inventoryItem.GetMoveCoordinates().end,
                     inventoryItem.GetMoveCoordinates().end);
                 inventoryItem.SetMoveCoordinates(newCoordinates);
             }
-            inventoryItem.parentAfterDrag = parentAfterDrag;
+            inventoryItem.SetParentAfterDrag(parentAfterDrag);
             inventoryItem.OnEndDrag();
         }
 

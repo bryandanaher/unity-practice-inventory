@@ -226,4 +226,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 5175721939747654526}
+  ghostItem: 0
   parentAfterDrag: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour, IPointerClickHandler
+public class InventoryItem : MonoBehaviour, IPointerClickHandler, IInventoryItem
 {
     public static event Action<GameObject> OnItemClicked;
     public static event Action<GameObject> OnItemShiftClick;
@@ -98,5 +98,9 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     
     public void SetMoveCoordinates((int start, int end) inputCoordinates) {
         moveCoordinates = inputCoordinates;
+    }
+
+    public void SetParentAfterDrag(Transform newParent) {
+        parentAfterDrag = newParent;
     }
 }

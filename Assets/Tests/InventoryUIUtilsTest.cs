@@ -1,5 +1,8 @@
 using System.Collections;
 using InventoryScripts;
+using NSubstitute;
+using NSubstitute.Core.Arguments;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -109,22 +112,27 @@ namespace Tests
         }
 
         [Test]
-        public void PutInventoryItemInSlot_Test() {
+        public void PutInventoryItemInSlot_SetCoordinates() {
+            var mockInventoryItem = Substitute.For<IInventoryItem>();
+            (int start, int end) returnCoordinates = (1, 2);
+            mockInventoryItem.GetMoveCoordinates().Returns(returnCoordinates);
+            var parentAfterDrag = new GameObject().transform;
 
+            InventoryUIUtils.PutInventoryItemInSlot(mockInventoryItem, parentAfterDrag, true);
+            mockInventoryItem.Received().SetMoveCoordinates((2, 2));
+            mockInventoryItem.Received().OnEndDrag();
         }
 
         [Test]
-        public void CreateSplitModal_Test() {
+        public void PutInventoryItemInSlot_DontSetCoordinates() {
+            var mockInventoryItem = Substitute.For<IInventoryItem>();
+            //(int start, int end) returnCoordinates = (1, 2);
+            //mockInventoryItem.GetMoveCoordinates().Returns(returnCoordinates);
+            var parentAfterDrag = new GameObject().transform;
 
-        }
-
-
-        [UnityTest]
-        public IEnumerator NewTestScriptWithEnumeratorPasses()
-        {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
+            InventoryUIUtils.PutInventoryItemInSlot(mockInventoryItem, parentAfterDrag, false);
+            mockInventoryItem.DidNotReceive().SetMoveCoordinates((2, 2));
+            mockInventoryItem.Received().OnEndDrag();
         }
     }
 }
